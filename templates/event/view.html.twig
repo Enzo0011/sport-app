@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event details{% endblock %}
+
+{% block body %}
+    <h3>Event</h3>
+
+    <h4>{{ event.name }}</h4>
+    <p>Latitude: {{ event.latitude }}</p>
+    <p>Longitude: {{ event.longitude }}</p>
+    <p>Date: {{ event.date|date('d-m-Y'') }}</p>
+    <br>
+    <h4>Participants</h4>
+    <a href="{{ path('app_add_participant', {id: event.id}) }}">Ajouter un Participant</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Distance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for participant in event.participants %}
+                <tr>
+                    <td>{{ participant.name }}</td>
+                    <td>{{ participant.email }}</td>
+                    <td>{{ participant.latitude }}</td>
+                    <td>{{ participant.longitude }}</td>
+                    <td><a href="{{ path('app_event_distance', {id: event.id, lat: participant.latitude, long: participant.longitude}) }}">Distance</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucun record</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+{% endblock %}

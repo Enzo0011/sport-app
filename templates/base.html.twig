@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}sport app!{% endblock %}</title>
+        <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+        {% block stylesheets %}{% endblock %}
+        {% block extra_scripts %}
+            {% block dynamic_imports %}{{ importmap('app_resources') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% for label, messages in app.flashes %}
+            <section class="notification-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </section>
+        {% endfor %}
+        {% block body %}{% endblock %}
+    </body>
+</html>
